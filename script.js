@@ -24,3 +24,34 @@ setInterval(() => {
     setTimeout(() => document.body.style.transform = "", 90);
   }
 }, 1800);
+const contactButton = document.getElementById("contactButton");
+const callScreen = document.getElementById("callScreen");
+const callStatus = document.getElementById("callStatus");
+const creepyAudio = document.getElementById("creepyAudio");
+const endCall = document.getElementById("endCall");
+
+contactButton.addEventListener("click", function () {
+
+    callScreen.style.display = "flex";
+
+    callStatus.textContent = "Calling...";
+
+    setTimeout(function () {
+
+        callStatus.textContent = "CONNECTED";
+
+        creepyAudio.currentTime = 0;
+        creepyAudio.play();
+
+    }, 4000);
+
+});
+
+endCall.addEventListener("click", function () {
+
+    creepyAudio.pause();
+    creepyAudio.currentTime = 0;
+
+    callScreen.style.display = "none";
+
+});
