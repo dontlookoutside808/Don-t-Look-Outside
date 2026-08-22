@@ -219,9 +219,9 @@
         IF ANY INFORMATION IS KNOWN, PLEASE CONTACT LOCAL AUTHORITIES.
     </p>
 
-    <button id="contactButton">
-        PRESS HERE TO CONTACT AUTHORITIES
-    </button>
+    <button id="contactButton" onclick="startCall()">
+    PRESS HERE TO CONTACT AUTHORITIES
+</button>
 
 </section>
 
@@ -240,7 +240,7 @@
             ☎
         </div>
 
-        <button id="endCall">END CALL</button>
+        <button id="endCall" onclick="endCallFunction()">END CALL</button>
 
     </div>
 
@@ -248,7 +248,38 @@
 
 <audio id="creepyAudio" src="Arabian Nights SCARY.m4a"></audio>
 
-<script src="script.js"></script>
+<script>
+function startCall() {
+
+    const callScreen = document.getElementById("callScreen");
+    const callStatus = document.getElementById("callStatus");
+    const audio = document.getElementById("creepyAudio");
+
+    callScreen.style.display = "flex";
+
+    callStatus.textContent = "Calling...";
+
+    setTimeout(function() {
+
+        callStatus.textContent = "CONNECTED";
+
+        audio.currentTime = 0;
+        audio.play();
+
+    }, 4000);
+}
+
+function endCallFunction() {
+
+    const callScreen = document.getElementById("callScreen");
+    const audio = document.getElementById("creepyAudio");
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    callScreen.style.display = "none";
+}
+</script>
 
 </body>
 </html>
