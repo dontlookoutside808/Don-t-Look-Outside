@@ -266,21 +266,54 @@ function startCall() {
         audio.currentTime = 0;
         audio.play();
 
+        setTimeout(function() {
+
+            audio.pause();
+            audio.currentTime = 0;
+
+            callStatus.innerHTML =
+                "CALL TERMINATED<br><br>" +
+                "<span style='color:#777;'>WE COULD NOT LOCATE THE PERSON YOU WERE CALLING.</span>";
+
+            localStorage.setItem("authorityCallMade", "true");
+
+        }, 15000);
+
     }, 4000);
 }
+
 
 function endCallFunction() {
 
     const callScreen = document.getElementById("callScreen");
     const audio = document.getElementById("creepyAudio");
+    const contactButton = document.getElementById("contactButton");
 
     audio.pause();
     audio.currentTime = 0;
 
     callScreen.style.display = "none";
-}
-</script>
 
+    contactButton.textContent = "DO NOT CALL AGAIN";
+    contactButton.disabled = true;
+
+    localStorage.setItem("authorityCallMade", "true");
+}
+
+
+window.addEventListener("load", function() {
+
+    const contactButton = document.getElementById("contactButton");
+
+    if (localStorage.getItem("authorityCallMade") === "true") {
+
+        contactButton.textContent = "DO NOT CALL AGAIN";
+        contactButton.disabled = true;
+
+    }
+
+});
+</script>
 </body>
 </html>
 
