@@ -1,57 +1,103 @@
-const warning = document.getElementById("warning");
-const enter = document.getElementById("enter");
+document.addEventListener("DOMContentLoaded", function () {
 
-enter.addEventListener("click", () => {
-  warning.classList.add("hidden");
-});
+    // WARNING / ENTER BUTTON
+    const warning = document.getElementById("warning");
+    const enter = document.getElementById("enter");
 
-const files = {
-  "01": "REPORT 01: Multiple residents reported hearing a low singing voice after local television signals became distorted. No source was located.",
-  "02": "WITNESS STATEMENT: The witness repeatedly described the subject as human-shaped. The witness refused to describe its face.",
-  "03": "FILE CORRUPTED. A recovered fragment contains one readable sentence: DO NOT LOOK OUTSIDE."
-};
+    if (warning && enter) {
+        enter.addEventListener("click", function () {
+            warning.classList.add("hidden");
+        });
+    }
 
-document.querySelectorAll(".file-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.getElementById("file-output").textContent = files[btn.dataset.file];
-  });
-});
 
-// Rare screen disturbance.
-setInterval(() => {
-  if (Math.random() < 0.12) {
-    document.body.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
-    setTimeout(() => document.body.style.transform = "", 90);
-  }
-}, 1800);
-const contactButton = document.getElementById("contactButton");
-const callScreen = document.getElementById("callScreen");
-const callStatus = document.getElementById("callStatus");
-const creepyAudio = document.getElementById("creepyAudio");
-const endCall = document.getElementById("endCall");
+    // FILE BUTTONS
+    const files = {
+        "01": "REPORT 01: Multiple residents reported hearing a low singing voice after local television stations went offline.",
+        "02": "WITNESS STATEMENT: The witness repeatedly described the subject as human-shaped.",
+        "03": "FILE CORRUPTED. A recovered fragment contains one readable sentence: DO NOT LOOK OUTSIDE."
+    };
 
-contactButton.addEventListener("click", function () {
+    document.querySelectorAll(".file-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
 
-    callScreen.style.display = "flex";
+            const output = document.getElementById("file-output");
 
-    callStatus.textContent = "Calling...";
+            if (output && files[btn.dataset.file]) {
+                output.textContent = files[btn.dataset.file];
+            }
 
-    setTimeout(function () {
+        });
+    });
 
-        callStatus.textContent = "CONNECTED";
 
-        creepyAudio.currentTime = 0;
-        creepyAudio.play();
+    // RARE SCREEN DISTURBANCE
+    setInterval(function () {
 
-    }, 4000);
+        if (Math.random() < 0.12) {
 
-});
+            document.body.style.transform =
+                `translateX(${Math.random() * 4 - 2}px)`;
 
-endCall.addEventListener("click", function () {
+            setTimeout(function () {
+                document.body.style.transform = "";
+            }, 90);
 
-    creepyAudio.pause();
-    creepyAudio.currentTime = 0;
+        }
 
-    callScreen.style.display = "none";
+    }, 1800);
+
+
+    // CONTACT AUTHORITIES
+    const contactButton = document.getElementById("contactButton");
+    const callScreen = document.getElementById("callScreen");
+    const callStatus = document.getElementById("callStatus");
+    const creepyAudio = document.getElementById("creepyAudio");
+    const endCall = document.getElementById("endCall");
+
+
+    if (contactButton && callScreen && callStatus) {
+
+        contactButton.addEventListener("click", function () {
+
+            callScreen.style.display = "flex";
+
+            callStatus.textContent = "Calling...";
+
+
+            setTimeout(function () {
+
+                callStatus.textContent = "CONNECTED";
+
+                if (creepyAudio) {
+                    creepyAudio.currentTime = 0;
+
+                    creepyAudio.play().catch(function (error) {
+                        console.log("Audio could not play:", error);
+                    });
+                }
+
+            }, 4000);
+
+        });
+
+    }
+
+
+    // END CALL
+    if (endCall && callScreen) {
+
+        endCall.addEventListener("click", function () {
+
+            if (creepyAudio) {
+                creepyAudio.pause();
+                creepyAudio.currentTime = 0;
+            }
+
+            callScreen.style.display = "none";
+
+        });
+
+    }
 
 });
