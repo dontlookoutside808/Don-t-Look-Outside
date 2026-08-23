@@ -56,9 +56,7 @@
       </div>
 
       <div class="desmond-image">
-
         <img src="desmond.jpg" alt="Desmond O">
-
       </div>
 
       <p class="image-caption">
@@ -164,25 +162,50 @@
     </section>
 
 
-    <!-- FILES -->
+    <!-- ARCHIVE FILES -->
     <section class="files">
 
       <h2>ARCHIVE FILES</h2>
 
-      <button class="file-btn" data-file="01">
-        FILE_01 // FIRST REPORT
+      <p class="muted">
+        ACCESS LEVEL: RESTRICTED
+      </p>
+
+
+      <!-- FILE 01 -->
+      <button
+        class="file-btn"
+        id="file01"
+        data-file="01"
+        disabled>
+        🔒 FILE_01 // FIRST REPORT
       </button>
 
-      <button class="file-btn" data-file="02">
-        FILE_02 // WITNESS STATEMENT
+
+      <!-- FILE 02 -->
+      <button
+        class="file-btn"
+        id="file02"
+        data-file="02"
+        disabled>
+        🔒 FILE_02 // WITNESS STATEMENT
       </button>
 
-      <button class="file-btn" data-file="03">
-        FILE_03 // [REDACTED]
+
+      <!-- FILE 03 -->
+      <button
+        class="file-btn"
+        id="file03"
+        data-file="03"
+        disabled>
+        🔒 FILE_03 // [REDACTED]
       </button>
+
 
       <div id="file-output" class="file-output">
-        SELECT A FILE.
+
+        <p>SELECT AN UNLOCKED FILE.</p>
+
       </div>
 
     </section>
@@ -197,6 +220,8 @@
 
       <img src="IMG_2287.jpg" alt="Missing person report">
 
+
+      <!-- 8:08 CLUE -->
       <p class="last-seen">
         LAST SEEN: 8:08 PM
       </p>
@@ -205,7 +230,9 @@
       <!-- PUZZLE 01 -->
       <div class="puzzle-01">
 
-        <p class="classified">ARCHIVE ACCESS // 01</p>
+        <p class="classified">
+          ARCHIVE ACCESS // 01
+        </p>
 
         <p class="puzzle-text">
           THE TIME OF DISAPPEARANCE HAS BEEN RECORDED.
@@ -232,6 +259,7 @@
         IF ANY INFORMATION IS KNOWN, PLEASE CONTACT LOCAL AUTHORITIES.
       </p>
 
+
       <button id="contactButton">
         PRESS HERE TO CONTACT AUTHORITIES
       </button>
@@ -246,11 +274,15 @@
 
     <div class="call-content">
 
-      <p class="call-status">OUTGOING CALL</p>
+      <p class="call-status">
+        OUTGOING CALL
+      </p>
 
       <h1>LOCAL AUTHORITIES</h1>
 
-      <p id="callStatus">Calling...</p>
+      <p id="callStatus">
+        Calling...
+      </p>
 
       <div class="phone-circle">
         ☎
@@ -265,7 +297,10 @@
   </div>
 
 
-  <audio id="creepyAudio" src="Arabian Nights SCARY.m4a"></audio>
+  <audio
+    id="creepyAudio"
+    src="Arabian Nights SCARY.m4a">
+  </audio>
 
 
   <!-- JAVASCRIPT -->
@@ -273,87 +308,447 @@
 
   <script>
 
-    /* PUZZLE 01 */
+    /* =========================================
+       PUZZLE 01
+       8:08 = 808
+    ========================================= */
 
-    const puzzleButton = document.getElementById("puzzleButton");
+    const puzzleButton =
+      document.getElementById("puzzleButton");
+
+    const puzzleInput =
+      document.getElementById("puzzleInput");
+
+    const puzzleMessage =
+      document.getElementById("puzzleMessage");
+
 
     puzzleButton.addEventListener("click", function() {
 
-      const input = document.getElementById("puzzleInput");
-      const message = document.getElementById("puzzleMessage");
+      const answer =
+        puzzleInput.value.trim();
 
-      if (input.value.trim() === "808") {
 
-        message.innerHTML =
+      if (answer === "808") {
+
+        puzzleMessage.innerHTML =
           "ACCESS GRANTED.<br><br>" +
           "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
 
-        input.disabled = true;
+
+        puzzleInput.disabled = true;
+
         puzzleButton.disabled = true;
 
-        localStorage.setItem("puzzle01Solved", "true");
 
-      } else {
+        /* Unlock File 01 */
 
-        message.textContent = "ACCESS DENIED.";
+        unlockFile01();
 
-        input.value = "";
+
+        localStorage.setItem(
+          "puzzle01Solved",
+          "true"
+        );
+
+      }
+
+      else {
+
+        puzzleMessage.textContent =
+          "ACCESS DENIED.";
+
+        puzzleInput.value = "";
 
       }
 
     });
 
 
-    /* CHECK IF PUZZLE WAS ALREADY SOLVED */
+
+    /* =========================================
+       FILE UNLOCK SYSTEM
+    ========================================= */
+
+    const file01 =
+      document.getElementById("file01");
+
+    const file02 =
+      document.getElementById("file02");
+
+    const file03 =
+      document.getElementById("file03");
+
+    const fileOutput =
+      document.getElementById("file-output");
+
+
+
+    function unlockFile01() {
+
+      file01.disabled = false;
+
+      file01.textContent =
+        "FILE_01 // FIRST REPORT";
+
+    }
+
+
+
+    function unlockFile02() {
+
+      file02.disabled = false;
+
+      file02.textContent =
+        "FILE_02 // WITNESS STATEMENT";
+
+    }
+
+
+
+    function unlockFile03() {
+
+      file03.disabled = false;
+
+      file03.textContent =
+        "FILE_03 // [REDACTED]";
+
+    }
+
+
+
+    /* =========================================
+       FILE 01
+    ========================================= */
+
+    file01.addEventListener("click", function() {
+
+      if (file01.disabled) return;
+
+
+      fileOutput.innerHTML = `
+
+        <h3>FILE_01 // FIRST REPORT</h3>
+
+        <p>
+          REPORT NUMBER: 0041
+        </p>
+
+        <p>
+          SUBJECT: DESMOND O
+        </p>
+
+        <p>
+          STATUS: MISSING
+        </p>
+
+        <br>
+
+        <p>
+          The subject was reported missing shortly
+          after the evening broadcast.
+        </p>
+
+        <p>
+          Witnesses reported hearing a melody
+          immediately before the disappearance.
+        </p>
+
+        <br>
+
+        <p class="red">
+          [ADDITIONAL INFORMATION REMOVED]
+        </p>
+
+        <br>
+
+        <p>
+          ACCESS TO FILE_02 REQUIRES FURTHER
+          AUTHORIZATION.
+        </p>
+
+        <button
+          class="unlock-next"
+          onclick="unlockFile02()">
+
+          AUTHORIZE FILE_02
+
+        </button>
+
+      `;
+
+    });
+
+
+
+    /* =========================================
+       FILE 02
+    ========================================= */
+
+    file02.addEventListener("click", function() {
+
+      if (file02.disabled) return;
+
+
+      fileOutput.innerHTML = `
+
+        <h3>FILE_02 // WITNESS STATEMENT</h3>
+
+        <p>
+          WITNESS STATEMENT // TRANSCRIPT
+        </p>
+
+        <br>
+
+        <p>
+          "I heard someone singing outside."
+        </p>
+
+        <p>
+          "I thought it was a child."
+        </p>
+
+        <p>
+          "Then the singing stopped."
+        </p>
+
+        <br>
+
+        <p>
+          The witness refused to provide further
+          information.
+        </p>
+
+        <br>
+
+        <p class="red">
+          ONE LINE OF THE ORIGINAL STATEMENT
+          HAS BEEN REMOVED.
+        </p>
+
+        <br>
+
+        <p>
+          ACCESS TO FILE_03 REQUIRES FURTHER
+          AUTHORIZATION.
+        </p>
+
+        <button
+          class="unlock-next"
+          onclick="unlockFile03()">
+
+          AUTHORIZE FILE_03
+
+        </button>
+
+      `;
+
+    });
+
+
+
+    /* =========================================
+       FILE 03
+    ========================================= */
+
+    file03.addEventListener("click", function() {
+
+      if (file03.disabled) return;
+
+
+      fileOutput.innerHTML = `
+
+        <h3>FILE_03 // [REDACTED]</h3>
+
+        <p class="red">
+          SECURITY LEVEL: EXTREME
+        </p>
+
+        <br>
+
+        <p>
+          THIS FILE HAS BEEN PARTIALLY CORRUPTED.
+        </p>
+
+        <p>
+          RECOVERED DATA:
+        </p>
+
+        <br>
+
+        <p>
+          [DATA MISSING]
+        </p>
+
+        <p>
+          [DATA MISSING]
+        </p>
+
+        <p>
+          [DATA MISSING]
+        </p>
+
+        <br>
+
+        <p class="red">
+          DO NOT CONTINUE.
+        </p>
+
+      `;
+
+    });
+
+
+
+    /* =========================================
+       RESTORE PROGRESS AFTER REFRESH
+    ========================================= */
 
     window.addEventListener("load", function() {
 
-      const input = document.getElementById("puzzleInput");
-      const message = document.getElementById("puzzleMessage");
 
-      if (localStorage.getItem("puzzle01Solved") === "true") {
+      /* Puzzle 01 */
 
-        message.innerHTML =
+      if (
+        localStorage.getItem(
+          "puzzle01Solved"
+        ) === "true"
+      ) {
+
+        puzzleMessage.innerHTML =
           "ACCESS GRANTED.<br><br>" +
           "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
 
-        input.disabled = true;
-        document.getElementById("puzzleButton").disabled = true;
+        puzzleInput.disabled = true;
+
+        puzzleButton.disabled = true;
+
+        unlockFile01();
+
+      }
+
+
+      /* File 02 */
+
+      if (
+        localStorage.getItem(
+          "file02Unlocked"
+        ) === "true"
+      ) {
+
+        unlockFile02();
+
+      }
+
+
+      /* File 03 */
+
+      if (
+        localStorage.getItem(
+          "file03Unlocked"
+        ) === "true"
+      ) {
+
+        unlockFile03();
 
       }
 
     });
 
 
-    /* FAKE AUTHORITY CALL */
+
+    /* =========================================
+       SAVE FILE 02 / FILE 03 UNLOCKS
+    ========================================= */
+
+    const originalUnlockFile02 =
+      unlockFile02;
+
+    unlockFile02 = function() {
+
+      file02.disabled = false;
+
+      file02.textContent =
+        "FILE_02 // WITNESS STATEMENT";
+
+      localStorage.setItem(
+        "file02Unlocked",
+        "true"
+      );
+
+    };
+
+
+    const originalUnlockFile03 =
+      unlockFile03;
+
+    unlockFile03 = function() {
+
+      file03.disabled = false;
+
+      file03.textContent =
+        "FILE_03 // [REDACTED]";
+
+      localStorage.setItem(
+        "file03Unlocked",
+        "true"
+      );
+
+    };
+
+
+
+    /* =========================================
+       FAKE AUTHORITY CALL
+    ========================================= */
 
     function startCall() {
 
-      const callScreen = document.getElementById("callScreen");
-      const callStatus = document.getElementById("callStatus");
-      const audio = document.getElementById("creepyAudio");
+      const callScreen =
+        document.getElementById("callScreen");
+
+      const callStatus =
+        document.getElementById("callStatus");
+
+      const audio =
+        document.getElementById("creepyAudio");
+
 
       callScreen.style.display = "flex";
 
-      callStatus.textContent = "Calling...";
+      callStatus.textContent =
+        "Calling...";
+
 
       setTimeout(function() {
 
-        callStatus.textContent = "CONNECTED";
+        callStatus.textContent =
+          "CONNECTED";
 
         audio.currentTime = 0;
+
         audio.play();
+
 
         setTimeout(function() {
 
           audio.pause();
+
           audio.currentTime = 0;
+
 
           callStatus.innerHTML =
             "CALL TERMINATED<br><br>" +
-            "<span style='color:#777;'>WE COULD NOT LOCATE THE PERSON YOU WERE CALLING.</span>";
+            "<span style='color:#777;'>" +
+            "WE COULD NOT LOCATE THE PERSON " +
+            "YOU WERE CALLING." +
+            "</span>";
 
-          localStorage.setItem("authorityCallMade", "true");
+
+          localStorage.setItem(
+            "authorityCallMade",
+            "true"
+          );
 
         }, 15000);
 
@@ -362,38 +757,83 @@
     }
 
 
+
     function endCallFunction() {
 
-      const callScreen = document.getElementById("callScreen");
-      const audio = document.getElementById("creepyAudio");
-      const contactButton = document.getElementById("contactButton");
+      const callScreen =
+        document.getElementById("callScreen");
+
+      const audio =
+        document.getElementById("creepyAudio");
+
+      const contactButton =
+        document.getElementById("contactButton");
+
 
       audio.pause();
+
       audio.currentTime = 0;
 
-      callScreen.style.display = "none";
+      callScreen.style.display =
+        "none";
 
-      contactButton.textContent = "DO NOT CALL AGAIN";
-      contactButton.disabled = true;
 
-      localStorage.setItem("authorityCallMade", "true");
+      contactButton.textContent =
+        "DO NOT CALL AGAIN";
+
+      contactButton.disabled =
+        true;
+
+
+      localStorage.setItem(
+        "authorityCallMade",
+        "true"
+      );
 
     }
 
 
-    document.getElementById("contactButton").addEventListener("click", startCall);
 
-    document.getElementById("endCall").addEventListener("click", endCallFunction);
+    document
+      .getElementById("contactButton")
+      .addEventListener(
+        "click",
+        startCall
+      );
 
+
+    document
+      .getElementById("endCall")
+      .addEventListener(
+        "click",
+        endCallFunction
+      );
+
+
+
+    /* =========================================
+       RESTORE AUTHORITY CALL
+    ========================================= */
 
     window.addEventListener("load", function() {
 
-      const contactButton = document.getElementById("contactButton");
+      const contactButton =
+        document.getElementById(
+          "contactButton"
+        );
 
-      if (localStorage.getItem("authorityCallMade") === "true") {
 
-        contactButton.textContent = "DO NOT CALL AGAIN";
-        contactButton.disabled = true;
+      if (
+        localStorage.getItem(
+          "authorityCallMade"
+        ) === "true"
+      ) {
+
+        contactButton.textContent =
+          "DO NOT CALL AGAIN";
+
+        contactButton.disabled =
+          true;
 
       }
 
