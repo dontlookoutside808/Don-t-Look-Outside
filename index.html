@@ -335,7 +335,49 @@ window.addEventListener("load", function() {
         contactButton.disabled = true;
 
     }
+<script>
 
+function solvePuzzle() {
+
+    const input = document.getElementById("puzzleInput");
+    const message = document.getElementById("puzzleMessage");
+
+    if (input.value === "808") {
+
+        message.innerHTML =
+            "ACCESS GRANTED.<br><br>" +
+            "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
+
+        localStorage.setItem("puzzle01Solved", "true");
+
+        input.disabled = true;
+
+    } else {
+
+        message.textContent = "ACCESS DENIED.";
+
+        input.value = "";
+    }
+}
+
+
+window.addEventListener("load", function() {
+
+    const input = document.getElementById("puzzleInput");
+    const message = document.getElementById("puzzleMessage");
+
+    if (localStorage.getItem("puzzle01Solved") === "true") {
+
+        message.innerHTML =
+            "ACCESS GRANTED.<br><br>" +
+            "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
+
+        input.disabled = true;
+    }
+
+});
+
+</script>
 });
 </script>
 </body>
