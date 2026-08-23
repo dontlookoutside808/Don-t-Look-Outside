@@ -187,103 +187,157 @@
 
     </section>
 
+
+    <!-- MISSING PERSON FILE -->
+    <section class="missing-file">
+
+      <h2>RECOVERED FILE: 0041</h2>
+
+      <p class="classified">MISSING PERSON REPORT</p>
+
+      <img src="IMG_2287.jpg" alt="Missing person report">
+
+      <p class="last-seen">
+        LAST SEEN: 8:08 PM
+      </p>
+
+
+      <!-- PUZZLE 01 -->
+      <div class="puzzle-01">
+
+        <p class="classified">ARCHIVE ACCESS // 01</p>
+
+        <p class="puzzle-text">
+          THE TIME OF DISAPPEARANCE HAS BEEN RECORDED.
+        </p>
+
+        <input
+          type="text"
+          id="puzzleInput"
+          maxlength="3"
+          placeholder="___"
+          autocomplete="off"
+        >
+
+        <button id="puzzleButton">
+          SUBMIT
+        </button>
+
+        <p id="puzzleMessage"></p>
+
+      </div>
+
+
+      <p class="file-warning">
+        IF ANY INFORMATION IS KNOWN, PLEASE CONTACT LOCAL AUTHORITIES.
+      </p>
+
+      <button id="contactButton">
+        PRESS HERE TO CONTACT AUTHORITIES
+      </button>
+
+    </section>
+
   </main>
 
 
-  <footer>
-
-    <p>
-      PROPERTY OF THE EMERGENCY INFORMATION NETWORK
-    </p>
-
-    <p>
-      IF YOU ARE SEEING THIS PAGE, THE ARCHIVE IS STILL ACTIVE.
-    </p>
-
-  </footer>
-
-
-  <script src="script.js"></script>
-
-</body>
-</html>
-<section class="missing-file">
-
-    <h2>RECOVERED FILE: 0041</h2>
-
-    <p class="classified">MISSING PERSON REPORT</p>
-
-    <img src="IMG_2287.jpg" alt="Missing person report">
-
-  <p class="last-seen">
-    LAST SEEN: 8:08 PM
-</p>
-
-<div class="puzzle-01">
-    <p class="classified">ARCHIVE ACCESS // 01</p>
-
-    <p class="puzzle-text">
-        THE TIME OF DISAPPEARANCE HAS BEEN RECORDED.
-    </p>
-
-    <input
-        type="text"
-        id="puzzleInput"
-        maxlength="3"
-        placeholder="___"
-        autocomplete="off"
-    >
-
-    <button onclick="solvePuzzle()">SUBMIT</button>
-
-    <p id="puzzleMessage"></p>
-</div>
-
-    <p class="file-warning">
-        IF ANY INFORMATION IS KNOWN, PLEASE CONTACT LOCAL AUTHORITIES.
-    </p>
-
-    <button id="contactButton" onclick="startCall()">
-    PRESS HERE TO CONTACT AUTHORITIES
-</button>
-
-</section>
-
-<!-- FAKE CALL SCREEN -->
-<div id="callScreen" class="call-screen">
+  <!-- FAKE CALL SCREEN -->
+  <div id="callScreen" class="call-screen">
 
     <div class="call-content">
 
-        <p class="call-status">OUTGOING CALL</p>
+      <p class="call-status">OUTGOING CALL</p>
 
-        <h1>LOCAL AUTHORITIES</h1>
+      <h1>LOCAL AUTHORITIES</h1>
 
-        <p id="callStatus">Calling...</p>
+      <p id="callStatus">Calling...</p>
 
-        <div class="phone-circle">
-            ☎
-        </div>
+      <div class="phone-circle">
+        ☎
+      </div>
 
-        <button id="endCall" onclick="endCallFunction()">END CALL</button>
+      <button id="endCall">
+        END CALL
+      </button>
 
     </div>
 
-</div>
+  </div>
 
-<audio id="creepyAudio" src="Arabian Nights SCARY.m4a"></audio>
 
-<script>
-function startCall() {
+  <audio id="creepyAudio" src="Arabian Nights SCARY.m4a"></audio>
 
-    const callScreen = document.getElementById("callScreen");
-    const callStatus = document.getElementById("callStatus");
-    const audio = document.getElementById("creepyAudio");
 
-    callScreen.style.display = "flex";
+  <!-- JAVASCRIPT -->
+  <script src="script.js"></script>
 
-    callStatus.textContent = "Calling...";
+  <script>
 
-    setTimeout(function() {
+    /* PUZZLE 01 */
+
+    const puzzleButton = document.getElementById("puzzleButton");
+
+    puzzleButton.addEventListener("click", function() {
+
+      const input = document.getElementById("puzzleInput");
+      const message = document.getElementById("puzzleMessage");
+
+      if (input.value.trim() === "808") {
+
+        message.innerHTML =
+          "ACCESS GRANTED.<br><br>" +
+          "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
+
+        input.disabled = true;
+        puzzleButton.disabled = true;
+
+        localStorage.setItem("puzzle01Solved", "true");
+
+      } else {
+
+        message.textContent = "ACCESS DENIED.";
+
+        input.value = "";
+
+      }
+
+    });
+
+
+    /* CHECK IF PUZZLE WAS ALREADY SOLVED */
+
+    window.addEventListener("load", function() {
+
+      const input = document.getElementById("puzzleInput");
+      const message = document.getElementById("puzzleMessage");
+
+      if (localStorage.getItem("puzzle01Solved") === "true") {
+
+        message.innerHTML =
+          "ACCESS GRANTED.<br><br>" +
+          "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
+
+        input.disabled = true;
+        document.getElementById("puzzleButton").disabled = true;
+
+      }
+
+    });
+
+
+    /* FAKE AUTHORITY CALL */
+
+    function startCall() {
+
+      const callScreen = document.getElementById("callScreen");
+      const callStatus = document.getElementById("callStatus");
+      const audio = document.getElementById("creepyAudio");
+
+      callScreen.style.display = "flex";
+
+      callStatus.textContent = "Calling...";
+
+      setTimeout(function() {
 
         callStatus.textContent = "CONNECTED";
 
@@ -292,94 +346,60 @@ function startCall() {
 
         setTimeout(function() {
 
-            audio.pause();
-            audio.currentTime = 0;
+          audio.pause();
+          audio.currentTime = 0;
 
-            callStatus.innerHTML =
-                "CALL TERMINATED<br><br>" +
-                "<span style='color:#777;'>WE COULD NOT LOCATE THE PERSON YOU WERE CALLING.</span>";
+          callStatus.innerHTML =
+            "CALL TERMINATED<br><br>" +
+            "<span style='color:#777;'>WE COULD NOT LOCATE THE PERSON YOU WERE CALLING.</span>";
 
-            localStorage.setItem("authorityCallMade", "true");
+          localStorage.setItem("authorityCallMade", "true");
 
         }, 15000);
 
-    }, 4000);
-}
+      }, 4000);
+
+    }
 
 
-function endCallFunction() {
+    function endCallFunction() {
 
-    const callScreen = document.getElementById("callScreen");
-    const audio = document.getElementById("creepyAudio");
-    const contactButton = document.getElementById("contactButton");
+      const callScreen = document.getElementById("callScreen");
+      const audio = document.getElementById("creepyAudio");
+      const contactButton = document.getElementById("contactButton");
 
-    audio.pause();
-    audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
 
-    callScreen.style.display = "none";
+      callScreen.style.display = "none";
 
-    contactButton.textContent = "DO NOT CALL AGAIN";
-    contactButton.disabled = true;
+      contactButton.textContent = "DO NOT CALL AGAIN";
+      contactButton.disabled = true;
 
-    localStorage.setItem("authorityCallMade", "true");
-}
+      localStorage.setItem("authorityCallMade", "true");
+
+    }
 
 
-window.addEventListener("load", function() {
+    document.getElementById("contactButton").addEventListener("click", startCall);
 
-    const contactButton = document.getElementById("contactButton");
+    document.getElementById("endCall").addEventListener("click", endCallFunction);
 
-    if (localStorage.getItem("authorityCallMade") === "true") {
+
+    window.addEventListener("load", function() {
+
+      const contactButton = document.getElementById("contactButton");
+
+      if (localStorage.getItem("authorityCallMade") === "true") {
 
         contactButton.textContent = "DO NOT CALL AGAIN";
         contactButton.disabled = true;
 
-    }
-<script>
+      }
 
-function solvePuzzle() {
+    });
 
-    const input = document.getElementById("puzzleInput");
-    const message = document.getElementById("puzzleMessage");
+  </script>
 
-    if (input.value === "808") {
-
-        message.innerHTML =
-            "ACCESS GRANTED.<br><br>" +
-            "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
-
-        localStorage.setItem("puzzle01Solved", "true");
-
-        input.disabled = true;
-
-    } else {
-
-        message.textContent = "ACCESS DENIED.";
-
-        input.value = "";
-    }
-}
-
-
-window.addEventListener("load", function() {
-
-    const input = document.getElementById("puzzleInput");
-    const message = document.getElementById("puzzleMessage");
-
-    if (localStorage.getItem("puzzle01Solved") === "true") {
-
-        message.innerHTML =
-            "ACCESS GRANTED.<br><br>" +
-            "<span style='color:#aaa;'>FILE_01 UNLOCKED.</span>";
-
-        input.disabled = true;
-    }
-
-});
-
-</script>
-});
-</script>
 </body>
 </html>
-
