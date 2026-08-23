@@ -359,3 +359,55 @@ footer {
     padding: 12px 30px;
     cursor: pointer;
 }
+.last-seen {
+    margin-top: 15px;
+    color: #aaa;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+.puzzle-01 {
+    margin-top: 35px;
+    padding: 20px;
+    border: 1px solid #333;
+    background: rgba(0, 0, 0, 0.35);
+    font-family: monospace;
+}
+
+.puzzle-text {
+    color: #777;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+#puzzleInput {
+    background: #050505;
+    border: 1px solid #555;
+    color: #ddd;
+    padding: 10px;
+    width: 80px;
+    font-family: monospace;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+.puzzle-01 button {
+    background: #111;
+    border: 1px solid #555;
+    color: #aaa;
+    padding: 10px 15px;
+    margin-left: 5px;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.puzzle-01 button:hover {
+    background: #222;
+}
+
+#puzzleMessage {
+    margin-top: 15px;
+    color: #aaa;
+    font-family: monospace;
+    min-height: 20px;
+}
